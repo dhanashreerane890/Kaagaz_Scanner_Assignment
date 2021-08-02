@@ -30,7 +30,6 @@ import java.util.*
 import java.util.concurrent.Executors
 
 
-
 class MainActivity : AppCompatActivity() {
 
     private var imageCapture: ImageCapture? = null
@@ -46,8 +45,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        imageViewModel= ViewModelProviders.of(this).get(ImageViewModel::class.java)
-   if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             startCamera()
 
         } else {
@@ -63,16 +66,18 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         camera_capture_button.setOnClickListener {
             takePicture()
-            val fileName =outputDirectory.absolutePath
+            val fileName = outputDirectory.absolutePath
             val fileSaperator = "."
             val fileSaperatorTemp = "/"
 
 
             val FileNamePrefix = fileName.substring(0, fileName.lastIndexOf(fileSaperatorTemp))
-            val FileNameSuffix = fileName.substring(fileName.lastIndexOf(fileSaperator) +1, fileName.length)
-            val timeStemp = fileName.substring(fileName.lastIndexOf(fileSaperatorTemp) +1, fileName.length)
-//            val time = timeStemp.substring(0,timeStemp.lastIndexOf(fileSaperator) )
-            val imageDetailsEntity = ImageDetailsEntity(FileNamePrefix,timeStemp,"Kaagaz_Scanner_Assignment")
+            val FileNameSuffix =
+                fileName.substring(fileName.lastIndexOf(fileSaperator) + 1, fileName.length)
+            val timeStemp =
+                fileName.substring(fileName.lastIndexOf(fileSaperatorTemp) + 1, fileName.length)
+            val imageDetailsEntity =
+                ImageDetailsEntity(FileNamePrefix, timeStemp, "Kaagaz_Scanner_Assignment")
             imageViewModel.insertImage(imageDetailsEntity)
         }
         if (true == outputDirectory.listFiles()?.isNotEmpty()) {
@@ -101,14 +106,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+ //taking picture from camera
     private fun takePicture() {
         outputDirectory.listFiles { file ->
             EXTENSION_WHITELIST.contains(file.extension.toUpperCase(Locale.ROOT))
         }?.maxOrNull()?.let {
             setGalleryThumbnail(Uri.fromFile(it))
         }
-        val file =  File(
+        val file = File(
             outputDirectory, SimpleDateFormat(FILENAME, Locale.US)
                 .format(System.currentTimeMillis()) + PHOTO_EXTENSION
         )
@@ -151,11 +156,15 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && requestCode==123) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED && requestCode == 123
+        ) {
             startCamera()
 
         } else {
-            Toast.makeText(this,"Please grant the permission",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Please grant the permission", Toast.LENGTH_LONG).show()
         }
     }
 

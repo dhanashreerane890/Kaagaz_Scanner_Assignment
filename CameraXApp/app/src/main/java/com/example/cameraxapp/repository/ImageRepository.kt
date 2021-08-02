@@ -16,9 +16,5 @@ class ImageRepository (val imageDao: ImageDetailsDao) {
          imageDao.addDetails(imageDetailsEntity)
      }
  }
-//    fun getAllPictures():LiveData<List<ImageDetailsEntity>>{
-//        return imageDao.getAllDetails()
-//    }
-
 
 }

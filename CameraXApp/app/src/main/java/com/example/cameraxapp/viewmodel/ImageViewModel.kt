@@ -14,11 +14,9 @@ import kotlinx.coroutines.launch
 class ImageViewModel( application: Application): AndroidViewModel(application) {
     private val imageRepository: ImageRepository
 
-//    val getAllImages: LiveData<List<ImageDetailsEntity>>
     init {
         val dao= ImageDetailsDatabase.getDatabase(application).getMyImageDetailsDao()
         imageRepository= ImageRepository(dao)
-//        getAllImages=imageRepository.getAllPictures()
     }
  fun insertImage(imageDetailsEntity: ImageDetailsEntity) = viewModelScope.launch(Dispatchers.IO){
      imageRepository.addPicture(imageDetailsEntity)
