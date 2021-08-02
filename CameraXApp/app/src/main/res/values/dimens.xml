@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="stroke_small">4dp</dimen>
+    <dimen name="stroke_medium">8dp</dimen>
+    <dimen name="stroke_large">12dp</dimen>
+</resources>
